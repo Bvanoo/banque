@@ -1,10 +1,30 @@
-﻿namespace banque.Classes
+﻿using banque.Interface;
+
+namespace banque.Classes
 {
-    public class Compte
+    public abstract class Compte : IBanker
     {
-        public string Numero { get; set; } = null!;
+
+        public Compte(string Numero, Personne Titulaire)
+        {
+            this.Numero = Numero;
+            this.Titulaire = Titulaire;
+        }
+        public Compte(string Numero, Personne Titulaire, double Solde) : this(Numero, Titulaire)
+        {
+            this.Solde = Solde;
+        }
+
+
+        public string Numero { get; private set; } = null!;
         private protected double _Solde;
-        public Personne Titulaire { get; set; } = null!;
+        public Personne Titulaire { get; private set; } = null!;
+        protected abstract double CalculInteret();
+
+        public double AppliquerInteret()
+        {
+            return _Solde + CalculInteret();
+        }
 
         public void Retrait(double montant)
         {

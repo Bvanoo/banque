@@ -36,5 +36,9 @@
         {
 
         }
+        public void PassageEnNegatifAction(Compte c)
+        {
+            Console.WriteLine($" Le compte {c.Numero} vient de passer en négatif");
+        }
     }
 }

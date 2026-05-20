@@ -2,8 +2,10 @@
 
 namespace banque.Classes
 {
+    public delegate void PassageEnNegatifDelegate(Compte c);
     public abstract class Compte : IBanker
     {
+    public event PassageEnNegatifDelegate? PassageEnNegatifEvent;
         public Compte(string Numero, Personne Titulaire)
         {
             this.Numero = Numero;
@@ -31,8 +33,9 @@ namespace banque.Classes
         { 
             try
             {
-                if(Solde < montant)
+                if(Solde - montant<= 0)
                 {
+                    PassageEnNegatifEvent(this);
                     throw new SoldeInsuffisantException("Solde insufisant", "Vous devez disposer de plus d'argent que vous ne souhaitez en retirer");
                 }
             }catch(SoldeInsuffisantException e)

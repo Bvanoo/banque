@@ -2,10 +2,16 @@
 {
     public class Courant : Compte
     {
-		public Courant(string Numero, Personne Titulaire,double LDC) : base(Numero, Titulaire)
+		public Courant(string Numero, Personne Titulaire, double LDC):base(Numero, Titulaire) 
 		{
 			this.LigneDeCredit = LDC;
 		}
+		public Courant(string Numero, Personne Titulaire,double Solde, double LDC):base(Numero, Titulaire, Solde) 
+		{
+			this.LigneDeCredit = LDC;
+		}
+
+
 
         private double _LigneDeCredit;
         protected override double CalculInteret()
@@ -26,7 +32,15 @@
         public double LigneDeCredit
 		{
 			get { return _LigneDeCredit; }
-			set { if(value >= 0) {  _LigneDeCredit = value; }; }
+			set {
+				try
+				{
+				double v = value <= 0 ? throw new InvalidOperationException("Votre	ligne de crédit est inférieure ou égale a 0") : _LigneDeCredit = value;   
+				}catch(Exception ex)
+				{
+					Console.WriteLine(ex.Message);
+				}
+				}
 		}
 	}
 }

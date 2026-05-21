@@ -2,10 +2,10 @@
 
 namespace banque.Classes
 {
-    public delegate void PassageEnNegatifDelegate(Compte c);
     public abstract class Compte : IBanker
     {
-    public event PassageEnNegatifDelegate? PassageEnNegatifEvent;
+ 
+    public event Action<Compte>? PassageEnNegatifEvent;
         public Compte(string Numero, Personne Titulaire)
         {
             this.Numero = Numero;
